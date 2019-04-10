@@ -1,5 +1,5 @@
-// Îå×ÓÆå.cpp: ¶¨Òå¿ØÖÆÌ¨Ó¦ÓÃ³ÌĞòµÄÈë¿Úµã¡£
-//
+// äº”å­æ£‹.cpp: å®šä¹‰æ§åˆ¶å°åº”ç”¨ç¨‹åºçš„å…¥å£ç‚¹ã€‚
+//å¼€å‘ç¯å¢ƒï¼šVS2017
 
 #include "stdafx.h"
 #include<graphics.h>
@@ -11,18 +11,18 @@ void InitGame();
 void PlayChess();
 int GameOver(int a,int b);
 
-int flag = 0;                   //ÅĞ¶ÏÏÂºÚÆå»¹ÊÇ°×ÆåµÄ±êÖ¾
-int arr[20][20] = { 0 };		//0´ú±íÃ»Æå×ÓÔÚÉÏÃæ
+int flag = 0;                   //åˆ¤æ–­ä¸‹é»‘æ£‹è¿˜æ˜¯ç™½æ£‹çš„æ ‡å¿—
+int arr[20][20] = { 0 };		//0ä»£è¡¨æ²¡æ£‹å­åœ¨ä¸Šé¢
 
-void InitGame()                 //ÓÎÏ·³õÊ¼»¯
+void InitGame()                 //æ¸¸æˆåˆå§‹åŒ–
 {
-	initgraph(500, 500);        //´´½¨´°¿Ú
-	loadimage(NULL,L"±³¾°.jpg");//Ìù±³¾°Í¼Æ¬
-	setlinecolor(BLACK);        //ÉèÖÃÆåÅÌÏßÎªºÚÉ«
+	initgraph(500, 500);        //åˆ›å»ºçª—å£
+	loadimage(NULL,L"èƒŒæ™¯.jpg");//è´´èƒŒæ™¯å›¾ç‰‡
+	setlinecolor(BLACK);        //è®¾ç½®æ£‹ç›˜çº¿ä¸ºé»‘è‰²
 	for (int i = 1; i < 20; i++)
 	{
-		line(i * 25, 10, i * 25, 490);//»­ÊúÏß
-		line(10, i * 25, 490, i * 25);//»­ºáÏß
+		line(i * 25, 10, i * 25, 490);//ç”»ç«–çº¿
+		line(10, i * 25, 490, i * 25);//ç”»æ¨ªçº¿
 	}
 }
 void PlayChess()
@@ -31,7 +31,7 @@ void PlayChess()
 	int a = 0, b = 0,x=0,y=0;
 	while (1)
 	{
-		m = GetMouseMsg();//½ÓÊÕÊó±êĞÅÏ¢
+		m = GetMouseMsg();//æ¥æ”¶é¼ æ ‡ä¿¡æ¯
 		for (int i = 1; i < 20; i++)
 		{
 			for (int j = 1; j < 20; j++)
@@ -45,39 +45,39 @@ void PlayChess()
 				}
 			}
 		}
-		if (m.uMsg == WM_LBUTTONDOWN)   //µ±×ó¼ü°´ÏÂ
+		if (m.uMsg == WM_LBUTTONDOWN)   //å½“å·¦é”®æŒ‰ä¸‹
 		{
-			if (arr[a][b] != 0)			//ÅĞ¶Ï´ËÎ»ÖÃÊÇ·ñÎª¿Õ£¬Èç¹ûÓĞÆå×ÓÔòÍË³öÑ­»·£¬×ó¼üÖØĞÂÑ¡µã
+			if (arr[a][b] != 0)			//åˆ¤æ–­æ­¤ä½ç½®æ˜¯å¦ä¸ºç©ºï¼Œå¦‚æœæœ‰æ£‹å­åˆ™é€€å‡ºå¾ªç¯ï¼Œå·¦é”®é‡æ–°é€‰ç‚¹
 			{
 				continue;
 			}
-			if (flag % 2 == 0)			//flagÈ¡Óà£¬Ë«ÊıÂÖµ½ºÚÆåÏÂ£¬µ¥Êı°×ÆåÏÂ
+			if (flag % 2 == 0)			//flagå–ä½™ï¼ŒåŒæ•°è½®åˆ°é»‘æ£‹ä¸‹ï¼Œå•æ•°ç™½æ£‹ä¸‹
 			{
-				setfillcolor(BLACK);	//ÉèÖÃÆå×ÓÑÕÉ«ÎªºÚÉ«
-				solidcircle(x, y, 10);	//»­Ô²È¦´ú±íÆå×Ó£¬Ô²ĞÄ×ø±ê(x£¬y),°ë¾¶10
+				setfillcolor(BLACK);	//è®¾ç½®æ£‹å­é¢œè‰²ä¸ºé»‘è‰²
+				solidcircle(x, y, 10);	//ç”»åœ†åœˆä»£è¡¨æ£‹å­ï¼Œåœ†å¿ƒåæ ‡(xï¼Œy),åŠå¾„10
 				arr[a][b] = 1;
 			}
 			else
 			{
-				setfillcolor(WHITE);	//ÉèÖÃÑÕÉ«°×É«
-				solidcircle(x, y, 10);	//Í¬ÉÏ
+				setfillcolor(WHITE);	//è®¾ç½®é¢œè‰²ç™½è‰²
+				solidcircle(x, y, 10);	//åŒä¸Š
 				arr[a][b] = 2;
 			}
 			flag++;
 		}
-		if (GameOver(a, b))//·ûºÏÎå×ÓÁ¬ÏßµÄÌõ¼ş
+		if (GameOver(a, b))//ç¬¦åˆäº”å­è¿çº¿çš„æ¡ä»¶
 		{
 			if (flag % 2 == 1)
 			{
 				setbkmode(0);
-				outtextxy(200, 200, L"ºÚÆåÓ®ÁË");
+				outtextxy(200, 200, L"é»‘æ£‹èµ¢äº†");
 				Sleep(3000);
 				exit(0);
 			}
 			else
 			{
 				setbkmode(0);
-				outtextxy(200, 200, L"°×ÆåÓ®ÁË");
+				outtextxy(200, 200, L"ç™½æ£‹èµ¢äº†");
 				Sleep(3000);
 				exit(0);
 			}
@@ -89,10 +89,10 @@ int GameOver(int a,int b)
 {
 	int i = 0, j = 0;
 	int t = 2 - flag % 2;
-	for (i = a - 4, j = b; i <= a; i++)//ÅĞ¶Ïºá£¬Îå×ÓÁ¬Ïß
+	for (i = a - 4, j = b; i <= a; i++)//åˆ¤æ–­æ¨ªï¼Œäº”å­è¿çº¿
 		if (i >= 1 && i <= 15 && t == arr[i][j] && t == arr[i + 1][j] && t == arr[i + 2][j] && t == arr[i + 3][j] && t == arr[i + 4][j])
 			return 1;
-	for (j = b - 4, i = a; j <= b; j++)//ÅĞ¶ÏÊú
+	for (j = b - 4, i = a; j <= b; j++)//åˆ¤æ–­ç«–
 		if (j >= 1 && j <= 15 && t == arr[i][j] && t == arr[i][j + 1] && t == arr[i][j + 2] && t == arr[i][j + 3] && t == arr[i][j + 4])
 			return 1;
 	for (i = a - 4, j = b - 4; i <= a, j <= b; i++, j++)
