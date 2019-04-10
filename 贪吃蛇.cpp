@@ -1,5 +1,5 @@
-// Ì°³ÔÉß.cpp: ¶¨Òå¿ØÖÆÌ¨Ó¦ÓÃ³ÌĞòµÄÈë¿Úµã¡£
-//
+// è´ªåƒè›‡.cpp: å®šä¹‰æ§åˆ¶å°åº”ç”¨ç¨‹åºçš„å…¥å£ç‚¹ã€‚
+//å¼€å‘ç¯å¢ƒï¼švs2017
 
 #include "stdafx.h"
 #include<stdio.h>
@@ -7,17 +7,17 @@
 #include"conio.h"
 #include"graphics.h"
 
-void InitGame();		//ÓÎÏ·³õÊ¼»¯
-void SnakeMove();	    //ÉßµÄÒÆ¶¯
-void SnakePrint();      //»­Éß
-void ChangeSnakeCh();   //¸Ä±äÉßµÄ·½Ïò
-void EatFood();         //³ÔµôÊ³Îï
-void FoodCoor();        //Éú³ÉÊ³ÎïÎ»ÖÃ
-void FoodPrint();       //»­Ê³Îï
-void GameOver();        //ÓÎÏ·½áÊø
+void InitGame();		//æ¸¸æˆåˆå§‹åŒ–
+void SnakeMove();	    //è›‡çš„ç§»åŠ¨
+void SnakePrint();      //ç”»è›‡
+void ChangeSnakeCh();   //æ”¹å˜è›‡çš„æ–¹å‘
+void EatFood();         //åƒæ‰é£Ÿç‰©
+void FoodCoor();        //ç”Ÿæˆé£Ÿç‰©ä½ç½®
+void FoodPrint();       //ç”»é£Ÿç‰©
+void GameOver();        //æ¸¸æˆç»“æŸ
 
-#define MAX 1000        //ÉßµÄ×î´ó½ÚÊı
-#define Size 20         //ÉßÒ»½ÚµÄ³ß´ç
+#define MAX 1000        //è›‡çš„æœ€å¤§èŠ‚æ•°
+#define Size 20         //è›‡ä¸€èŠ‚çš„å°ºå¯¸
 struct COOR  
 {
 	int x;
@@ -32,38 +32,38 @@ enum CH
 };
 struct Snake
 {
-	int n;        //ÉßµÄ½ÚÊı
-	COOR src[MAX];//ÉßµÄ×ø±ê
-	CH ch;      //ÉßµÄ·½Ïò
+	int n;        //è›‡çš„èŠ‚æ•°
+	COOR src[MAX];//è›‡çš„åæ ‡
+	CH ch;      //è›‡çš„æ–¹å‘
 }snake;
 struct FOOD
 {
-	COOR frc;//Ê³ÎïµÄ×ø±ê
-	int flag;//Éú³ÉÊ³ÎïµÄ±êÖ¾
+	COOR frc;//é£Ÿç‰©çš„åæ ‡
+	int flag;//ç”Ÿæˆé£Ÿç‰©çš„æ ‡å¿—
 }food;
 
-void InitGame()//ÓÎÏ·³õÊ¼»¯
+void InitGame()//æ¸¸æˆåˆå§‹åŒ–
 {
-	initgraph(500, 500); //´°¿Ú³ß´ç
-	snake.n = 1;         //ÉßµÄ½ÚÊı³õÊ¼Îª1
-	snake.src[0].x = 0;  //ÉßµÄÎ»ÖÃºá×ø±êx³õÊ¼Îª0
-	snake.src[0].y = 0;  //ÉßµÄÎ»ÖÃ×İ×ø±êy³õÊ¼Îª0
-	snake.ch = right;    //ÉßµÄ³õÊ¼·½ÏòÏòÓÒ
-	food.flag = 0;       //0±íÊ¾ĞèÒªÉú³ÉÊ³Îï
+	initgraph(500, 500); //çª—å£å°ºå¯¸
+	snake.n = 1;         //è›‡çš„èŠ‚æ•°åˆå§‹ä¸º1
+	snake.src[0].x = 0;  //è›‡çš„ä½ç½®æ¨ªåæ ‡xåˆå§‹ä¸º0
+	snake.src[0].y = 0;  //è›‡çš„ä½ç½®çºµåæ ‡yåˆå§‹ä¸º0
+	snake.ch = right;    //è›‡çš„åˆå§‹æ–¹å‘å‘å³
+	food.flag = 0;       //0è¡¨ç¤ºéœ€è¦ç”Ÿæˆé£Ÿç‰©
 }
 
-void SnakePrint()//»­Éß
+void SnakePrint()//ç”»è›‡
 {
 	setfillcolor(BLUE);
 	solidcircle(snake.src[0].x + Size/2, snake.src[0].y + Size/2 , 10);
-	//fillrectangle(snake.src[0].x, snake.src[0].y, snake.src[0].x + Size, snake.src[0].y + Size);//Ò»¸öÕı·½ĞÎ´ú±íÉßÍ·
+	//fillrectangle(snake.src[0].x, snake.src[0].y, snake.src[0].x + Size, snake.src[0].y + Size);//ä¸€ä¸ªæ­£æ–¹å½¢ä»£è¡¨è›‡å¤´
 	setfillcolor(GREEN);
 
 	for (int i = snake.n - 1; i > 0; i--)
-		fillrectangle(snake.src[i].x, snake.src[i].y, snake.src[i].x + Size, snake.src[i].y+Size);//ÉßÉí
+		fillrectangle(snake.src[i].x, snake.src[i].y, snake.src[i].x + Size, snake.src[i].y+Size);//è›‡èº«
 }
 
-void SnakeMove()//ÉßµÄÒÆ¶¯
+void SnakeMove()//è›‡çš„ç§»åŠ¨
 {
 	for (int i = snake.n-1; i > 0; i--)
 	{
@@ -89,7 +89,7 @@ void SnakeMove()//ÉßµÄÒÆ¶¯
 	}
 }
 
-void ChangeSnakeCh()//¿ØÉßµÄ·½Ïò
+void ChangeSnakeCh()//æ§è›‡çš„æ–¹å‘
 {
 	switch (_getch())
 	{
@@ -113,32 +113,32 @@ void ChangeSnakeCh()//¿ØÉßµÄ·½Ïò
 	}
 }
 
-void FoodCoor()//Éú³ÉÊ³Îï×ø±ê
+void FoodCoor()//ç”Ÿæˆé£Ÿç‰©åæ ‡
 {
-	srand((unsigned)time(NULL));    //²úÉúËæ»úÖÖ×Ó
-	food.frc.x = rand() % 25 * Size;//Ê³Îïx×ø±ê
-	food.frc.y = rand() % 25 * Size;//Ê³Îïy×ø±ê
-	food.flag = 1;                  //ÒÑÓĞÊ³ÎïÁË
+	srand((unsigned)time(NULL));    //äº§ç”Ÿéšæœºç§å­
+	food.frc.x = rand() % 25 * Size;//é£Ÿç‰©xåæ ‡
+	food.frc.y = rand() % 25 * Size;//é£Ÿç‰©yåæ ‡
+	food.flag = 1;                  //å·²æœ‰é£Ÿç‰©äº†
 }
 
-void FoodPrint()//»­Ê³Îï
+void FoodPrint()//ç”»é£Ÿç‰©
 {
 	setfillcolor(RED);
 	solidroundrect(food.frc.x, food.frc.y, food.frc.x + Size, food.frc.y + Size,30,30);
 }
 
-void EatFood()//³ÔÊ³Îï
+void EatFood()//åƒé£Ÿç‰©
 {
-	if (snake.src[0].x == food.frc.x && snake.src[0].y == food.frc.y)//Éß×ø±êºÍÊ³Îï×ø±êÖØºÏ
+	if (snake.src[0].x == food.frc.x && snake.src[0].y == food.frc.y)//è›‡åæ ‡å’Œé£Ÿç‰©åæ ‡é‡åˆ
 	{
-		snake.n++;                                                   //Éß½ÚÊı+1
-		food.flag = 0;                                               //ĞèÒªÉú³ÉÊ³ÎïÁË
+		snake.n++;                                                   //è›‡èŠ‚æ•°+1
+		food.flag = 0;                                               //éœ€è¦ç”Ÿæˆé£Ÿç‰©äº†
 	}
 }
 
 void GameOver()
 {
-	if (snake.src[0].x < 0 || snake.src[0].x>480|| snake.src[0].y < 0 || snake.src[0].y>480)//Éß×²µ½×óÓÒÇ½
+	if (snake.src[0].x < 0 || snake.src[0].x>480|| snake.src[0].y < 0 || snake.src[0].y>480)//è›‡æ’åˆ°å·¦å³å¢™
 	{
 		cleardevice();
 		outtextxy(200, 200, L"Game Over");
